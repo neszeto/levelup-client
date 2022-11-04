@@ -8,9 +8,9 @@ export const NavBar = () => {
             <li className="navbar__item">
                 Navigation link
             </li>
-            <li className="navbar__item">
-                Navigation link
-            </li>
+            <Link className="navbar__item" to="/games">
+                Games
+            </Link>
             <Link className="navbar__item" to="/events">
                 Events
             </Link>
