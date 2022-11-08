@@ -51,3 +51,15 @@ export const updateGame = (newGame, id) => {
      })
         
 }
+
+export const deleteGame = (id) => {
+    return fetch(`http://localhost:8000/games/${id}`, {
+        method: "DELETE",
+        headers:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            "Authorization": `Token ${localStorage.getItem("lu_token")}`
+        }
+     })
+
+}

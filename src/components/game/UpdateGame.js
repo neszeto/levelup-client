@@ -63,18 +63,34 @@ export const UpdateGame = () => {
                 onClick={evt => {
                     // Prevent form from being submitted
                     evt.preventDefault()
+                    if (currentGame.game_type.id) {
+                        const newGame = {
+                            maker: currentGame.maker,
+                            title: currentGame.title,
+                            numberOfPlayers: parseInt(currentGame.number_of_players),
+                            skillLevel: parseInt(currentGame.skill_level),
+                            gameType: parseInt(currentGame.game_type.id)
+                        }
+    
+                        // Send POST request to your API
+                        updateGame(newGame, gameId)
+                            .then(() => navigate(`/games/${gameId}`))
 
-                    const newGame = {
-                        maker: currentGame.maker,
-                        title: currentGame.title,
-                        numberOfPlayers: parseInt(currentGame.number_of_players),
-                        skillLevel: parseInt(currentGame.skill_level),
-                        gameType: parseInt(currentGame.game_type.id)
                     }
-
-                    // Send POST request to your API
-                    updateGame(newGame, gameId)
-                        .then(() => navigate("/games"))
+                    else {
+                        const newGame = {
+                            maker: currentGame.maker,
+                            title: currentGame.title,
+                            numberOfPlayers: parseInt(currentGame.number_of_players),
+                            skillLevel: parseInt(currentGame.skill_level),
+                            gameType: parseInt(currentGame.game_type)
+                        }
+    
+                        // Send POST request to your API
+                        updateGame(newGame, gameId)
+                            .then(() => navigate(`/games/${gameId}`))
+                    }
+                    
                 }}
                 className="btn btn-primary">Create</button>
         </form>

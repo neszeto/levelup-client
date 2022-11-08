@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { getEvents } from "../../managers/EventManager"
+import { deleteEvent, getEvents } from "../../managers/EventManager"
 
 
 export const EventList = (props) => {
@@ -11,7 +11,8 @@ export const EventList = (props) => {
     useEffect(() => {
         getEvents().then(data => setEvents(data))
     }, [])
- 
+    
+
     return (
         <article className="games">
             <button className="btn btn-2 btn-sep icon-create"
@@ -24,12 +25,21 @@ export const EventList = (props) => {
                     return <section key={`event--${event.id}`} className="event">
                         <div className="event__description">{event.description}</div>
                         <div className="event__time">On {event.date} at {event.time}</div>
+                        <div className="event_game">Featured Game: {event.game.title}</div>
                         <button onClick={
                            () => {
                             navigate({pathname: `/events/${event.id}`})
                            } 
                         }
-                        >Update Event</button>
+                        >Event Details</button>
+                        <button
+                        onClick={
+                            () => {
+                                deleteEvent(`${event.id}`)
+                                .then(() =>getEvents()
+                                .then(data => setEvents(data)))
+                            }
+                        }>Delete Event</button>
                     </section>
                 })
             }
